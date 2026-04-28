@@ -4,7 +4,6 @@ import React, { useEffect } from 'react';
 const MyPage = () => {
 
     useEffect(() => {
-
         const testFetch = async () => {
             const response = await fetch("http://localhost:10000/private/my-page-test", {
                 method: "POST",
@@ -17,10 +16,9 @@ const MyPage = () => {
         testFetch()
     }, [])
 
-    
     return (
         <div>
-            로그인 후 접근할 수 있는 마이페이지!      
+            로그인 후 접근할 수 있는 마이페이지😎
         </div>
     );
 };

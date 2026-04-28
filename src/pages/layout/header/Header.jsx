@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import S from './style';
 import useAuthStore from '../../../store/useAuthStore';
 
@@ -8,6 +8,7 @@ const Header = () => {
     const { isAuthenticated } = useAuthStore()
 
     return (
+        // 숨겨야함
         <>
             {isAuthenticated ? (
                 <S.Header>
@@ -15,8 +16,8 @@ const Header = () => {
                 </S.Header>
             ) : (
                 <S.Header>
-                    <S.Link to={"/member/login"}>로그인</S.Link>
                     <S.Link to={"/member/join"}>회원가입</S.Link>
+                    <S.Link to={"/member/login"}>로그인</S.Link>
                 </S.Header>
             )}
         </>

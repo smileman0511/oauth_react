@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
-
 const S = {}
-    S.Header = styled.header `
+
+    S.Header = styled.header`
         display: flex;
         align-items: center;
         height: 40px;
