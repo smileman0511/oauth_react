@@ -3,7 +3,7 @@ import './App.css';
 import { RouterProvider } from 'react-router-dom';
 import router from './routes/router';
 import { useEffect } from 'react';
-import useAuthStore from './store/useAuthStore';
+import useAuthStore from './store/useAuthStore.js';
 
 function App() {
 
@@ -13,7 +13,10 @@ function App() {
 
         // 최초 한 번 토큰으로 내 정보를 조회하는 서비스
         const intializeAuth = async () => {
+
             try {
+                console.log("AccessToken이 만료됨!")
+
                 const response = await fetch("http://localhost:10000/api/members/me", {
                     credentials: "include"
                 })
@@ -29,13 +32,33 @@ function App() {
 
             } catch (err) {
                 // accessToken이 만료
-                try{
-                    console.log(err)
-                    // 한 번 더 refresh 토큰과 accessToken을 백엔드로 보내서 accessToken 재발급
-                } catch (err){
-                    // refresh 토큰 만료 -> 재로그인
-                }
+                try {
+               console.log(err) 
+               // 한 번 더 refresh 토큰과 accessToken을 백엔드로 보내서 accessToken 재발급
+                    const response = await fetch("http://localhost:10000/api/auth/refresh", {
+                        method: "POST",
+                        credentials: "include"
+                    })
+                    
+                    if(!response.ok) throw new Error("Refresh Token Expired");
+                    const meReponse = await fetch("http://localhost:10000/api/members/me", {
+                        credentials: "include"
+                    })
+
+                    if(!response.ok) throw new Error("Refresh Token Expired");
+                    const datas = await response.json()
+                    const {success, message, data} = datas
+                    if(success){
+                        setMember(data)
+                        setIsAuthenticated(true)
+                    }
+
+            } catch (err) {
+                    setMember(null)
+                    setIsAuthenticated(false)
+               // refresh 토큰 만료 -> 재로그인
             }
+            } 
         }
 
         intializeAuth()
