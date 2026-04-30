@@ -13,6 +13,7 @@ const Header = () => {
             {isAuthenticated ? (
                 <S.Header>
                     <S.Link to={"/member/my-page"}>마이페이지</S.Link>
+                    <S.Link to={"http://localhost:10000/logout"}>로그아웃</S.Link>
                 </S.Header>
             ) : (
                 <S.Header>
