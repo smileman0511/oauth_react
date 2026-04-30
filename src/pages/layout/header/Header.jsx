@@ -5,13 +5,14 @@ import useAuthStore from '../../../store/useAuthStore';
 
 const Header = () => {
 
-    const { isAuthenticated } = useAuthStore()
+    const { member, isAuthenticated } = useAuthStore()
 
     return (
         // 숨겨야함
         <>
             {isAuthenticated ? (
                 <S.Header>
+                    <img style = {{width: "24px", height: "24px"}} src={member.memberPicture} />
                     <S.Link to={"/member/my-page"}>마이페이지</S.Link>
                     <S.Link to={"http://localhost:10000/logout"}>로그아웃</S.Link>
                 </S.Header>

@@ -14,7 +14,7 @@ function App() {
         // 최초 한 번 토큰으로 내 정보를 조회하는 서비스
         const intializeAuth = async () => {
             try {
-                const response = await fetch("http://localhost:10000/api/members/me", {
+                const response = await fetch("http://localhost:10000/private/api/members/me", {
                     credentials: "include"
                 })
     
@@ -41,7 +41,7 @@ function App() {
                     if(!response.ok) throw new Error("refresh Token Expired")
                     
                     // 새로운 accessToken으로 재요청
-                    const meReponse = await fetch("http://localhost:10000/api/members/me", {
+                    const meReponse = await fetch("http://localhost:10000/private/api/members/me", {
                         credentials: "include"
                     })
                     
@@ -62,8 +62,6 @@ function App() {
 
         intializeAuth()
     } , [])
-
-    console.log(member)
 
     return (
         <RouterProvider router={router} />
